@@ -45,10 +45,11 @@ export default {
         const item = this.currentSortedItem;
         const orderMod = this.currentSortDirection === "desc" ? -1 : 1;
         /*
-        **Sorting of unknown is before everything because a lot of fields have it 
+        **Sorting of unknown is before everything because a lot of fields have it
+        **As unknown is irrelevant to the search, it will be always on the bottom 
         */
-        if (a[item] === "unknown") return -4 * orderMod;
-        if (b[item] === "unknown") return 4 * orderMod;
+        if (a[item] === "unknown") return 4;
+        if (b[item] === "unknown") return -4;
         /*
         **sorting of numbers is done separately
         */
@@ -60,12 +61,13 @@ export default {
           );
         }
         /*
-        **Sorting of n/a and none go separately 
+        **Sorting of n/a and none go separately
+        **As they are irrelevant to the search, they will be always on the bottom 
         */
-        if (a[item] === "n/a") return -3 * orderMod;
-        if (b[item] === "n/a") return 3 * orderMod;
-        if (a[item] === "none") return -2 * orderMod;
-        if (b[item] === "none") return 2 * orderMod;
+        if (a[item] === "n/a") return 3;
+        if (b[item] === "n/a") return -3;
+        if (a[item] === "none") return 2;
+        if (b[item] === "none") return -2;
 
         if (a[item] < b[item]) return -1 * orderMod;
         if (a[item] > b[item]) return 1 * orderMod;
