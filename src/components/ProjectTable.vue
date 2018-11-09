@@ -17,7 +17,7 @@
         <td>{{value.gender}}</td>
       </tr>
     </tbody>
-     debug: sort={{currentSortedItem}}, dir={{currentSortDirection}}
+     <!-- debug: sort={{currentSortedItem}}, dir={{currentSortDirection}} -->
   </table>
   
 </template>
