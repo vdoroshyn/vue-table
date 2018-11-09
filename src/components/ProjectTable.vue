@@ -1,13 +1,73 @@
 <template>
-  <h1>{{test}}</h1>
+  <table>
+    <thead>
+      <tr>
+        <th v-for="(item, key, index) in tableTitles" @click="sort(key)" v-bind:key="index">{{item}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(value, index) in sortedTableData" v-bind:key="index">
+        <td>{{value.name}}</td>
+        <td>{{value.height}}</td>
+        <td>{{value.mass}}</td>
+        <td>{{value.hair_color}}</td>
+        <td>{{value.skin_color}}</td>
+        <td>{{value.eye_color}}</td>
+        <td>{{value.birth_year}}</td>
+        <td>{{value.gender}}</td>
+      </tr>
+    </tbody>
+     debug: sort={{currentSortedItem}}, dir={{currentSortDirection}}
+  </table>
+  
 </template>
 
 <script>
 export default {
   name: "ProjectTable",
+  methods: {
+    sort(item) {
+      item = item.toLowerCase();
+      /*
+      **Case when the user clicks the same item
+      */
+      if (this.currentSortedItem === item) {
+        this.currentSortDirection =
+          this.currentSortDirection === "asc" ? "desc" : "asc";
+        return;
+      }
+      this.currentSortedItem = item;
+    }
+  },
+  computed: {
+    sortedTableData: function() {
+      return this.tableData.sort((a, b) => {
+        const item = this.currentSortedItem;
+        const orderMod = this.currentSortDirection === "desc" ? -1 : 1;
+        /*
+        **sorting of numbers is done separately
+        */
+        if (item === "height" || item === "mass" || item === "birth_year") {
+          return (parseFloat(a[item]) - parseFloat(b[item])) * orderMod;
+        }
+        /*
+        **Sorting of n/a and none will go separately 
+        */
+        if (a[item] === "n/a") return -3 * orderMod;
+        if (b[item] === "n/a") return 3 * orderMod;
+        if (a[item] === "none") return -2 * orderMod;
+        if (b[item] === "none") return 2 * orderMod;
+
+        if (a[item] < b[item]) return -1 * orderMod;
+        if (a[item] > b[item]) return 1 * orderMod;
+        return 0;
+      });
+    }
+  },
   data: function() {
     return {
-      test: "lel",
+      currentSortedItem: "name",
+      currentSortDirection: "asc",
       tableTitles: {
         name: "Name",
         height: "Height",
@@ -67,4 +127,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 </style>
