@@ -14,23 +14,40 @@
       </thead>
       <tbody>
         <tr v-for="(value, index) in sortedTableData" v-bind:key="index">
-          <td v-show="filterCategories.includes('Name') && isEditable!==index" @dblclick="isEditable=index">{{value.name}}</td>
-          <input v-show="isEditable===index" type="text" v-model="value.name" @keyup.enter="isEditable=null">
+          <td v-show="filterCategories.includes('Name') && EditableName!==index" @dblclick="EditableName=index">{{value.name}}</td>
+          <input v-show="EditableName===index" type="text" v-model="value.name" v-on:blur="EditableName=null" @keyup.enter="EditableName=null">
 
+          <td v-show="filterCategories.includes('Height') && EditableHeight!==index" @dblclick="EditableHeight=index">{{value.height}}</td>
+          <input v-show="EditableHeight===index" type="text" v-model="value.height" v-on:blur="EditableHeight=null" @keyup.enter="EditableHeight=null">
+
+          <td v-show="filterCategories.includes('Mass') && EditableMass!==index" @dblclick="EditableMass=index">{{value.mass}}</td>
+          <input v-show="EditableMass===index" type="text" v-model="value.mass" v-on:blur="EditableMass=null" @keyup.enter="EditableMass=null">
+
+          <td v-show="filterCategories.includes('Hair color') && EditableHairColor!==index" @dblclick="EditableHairColor=index">{{value.hair_color}}</td>
+          <input v-show="EditableHairColor===index" type="text" v-model="value.hair_color" v-on:blur="EditableHairColor=null" @keyup.enter="EditableHairColor=null">
+
+          <td v-show="filterCategories.includes('Skin color') && EditableSkinColor!==index" @dblclick="EditableSkinColor=index">{{value.skin_color}}</td>
+          <input v-show="EditableSkinColor===index" type="text" v-model="value.skin_color" v-on:blur="EditableSkinColor=null" @keyup.enter="EditableSkinColor=null">
+
+          <td v-show="filterCategories.includes('Eye color') && EditableEyeColor!==index" @dblclick="EditableEyeColor=index">{{value.eye_color}}</td>
+          <input v-show="EditableEyeColor===index" type="text" v-model="value.eye_color" v-on:blur="EditableEyeColor=null" @keyup.enter="EditableEyeColor=null">
+
+          <td v-show="filterCategories.includes('Birth year') && EditableBirthYear!==index" @dblclick="EditableBirthYear=index">{{value.birth_year}}</td>
+          <input v-show="EditableBirthYear===index" type="text" v-model="value.birth_year" v-on:blur="EditableBirthYear=null" @keyup.enter="EditableBirthYear=null">
+
+          <td v-show="filterCategories.includes('Gender') && EditableGender!==index" @dblclick="EditableGender=index">{{value.gender}}</td>
+          <input v-show="EditableGender===index" type="text" v-model="value.gender" v-on:blur="EditableGender=null" @keyup.enter="EditableGender=null">
+          <!-- <td v-show="filterCategories.includes('Name')">{{value.name}}</td> -->
           <!-- <td v-show="filterCategories.includes('Height')">{{value.height}}</td> -->
-          <td v-show="filterCategories.includes('Height') && isHeightEditable!==index" @dblclick="isHeightEditable=index">{{value.height}}</td>
-          <input v-show="isHeightEditable===index" type="text" v-model="value.height" @keyup.enter="isHeightEditable=null">
-
-          <td v-show="filterCategories.includes('Mass')">{{value.mass}}</td>
-          <td v-show="filterCategories.includes('Hair color')">{{value.hair_color}}</td>
-          <td v-show="filterCategories.includes('Skin color')">{{value.skin_color}}</td>
-          <td v-show="filterCategories.includes('Eye color')">{{value.eye_color}}</td>
-          <td v-show="filterCategories.includes('Birth year')">{{value.birth_year}}</td>
-          <td v-show="filterCategories.includes('Gender')">{{value.gender}}</td>
+          <!-- <td v-show="filterCategories.includes('Mass')">{{value.mass}}</td> -->
+          <!-- <td v-show="filterCategories.includes('Hair color')">{{value.hair_color}}</td> -->
+          <!-- <td v-show="filterCategories.includes('Skin color')">{{value.skin_color}}</td> -->
+          <!-- <td v-show="filterCategories.includes('Eye color')">{{value.eye_color}}</td> -->
+          <!-- <td v-show="filterCategories.includes('Birth year')">{{value.birth_year}}</td> -->
+          <!-- <td v-show="filterCategories.includes('Gender')">{{value.gender}}</td> -->
         </tr>
       </tbody>
-      debug: sort={{sortBy}}, dir={{sortOrder}}, filterArray={{filterCategories}}, isEditable={{isEditable}}
-      <h1 v-show="false">Hello!</h1>
+      <!-- debug: sort={{sortBy}}, dir={{sortOrder}}, filterArray={{filterCategories}} -->
     </table>
   </div>
 </template>
@@ -57,15 +74,25 @@ export default {
         const item = this.sortBy;
         const orderMod = this.sortOrder === "desc" ? -1 : 1;
         /*
-        **Sorting of unknown is before everything because a lot of fields have it
+        **If a user deletes something and we have an empty string
+        */
+        if (a[item] === "") return 5;
+        if (b[item] === "") return -5;
+        /*
+        **Sorting of unknown is before everything else because a lot of fields have it
         **As unknown is irrelevant to the search, it will be always on the bottom 
         */
         if (a[item] === "unknown") return 4;
         if (b[item] === "unknown") return -4;
         /*
         **sorting of numbers is done separately
+        **(with the case covered when the user trolls us, deletes a number and inputs a string)
         */
-        if (item === "height" || item === "mass" || item === "birth_year") {
+        if (
+          (item === "height" || item === "mass" || item === "birth_year") &&
+          parseFloat(a[item]) &&
+          parseFloat(b[item])
+        ) {
           return (
             (parseFloat(a[item].replace(/,/g, "")) -
               parseFloat(b[item].replace(/,/g, ""))) *
@@ -91,8 +118,14 @@ export default {
     return {
       sortBy: "name",
       sortOrder: "asc",
-      isEditable: null,
-      isHeightEditable: null,
+      EditableName: null,
+      EditableHeight: null,
+      EditableMass: null,
+      EditableHairColor: null,
+      EditableSkinColor: null,
+      EditableEyeColor: null,
+      EditableBirthYear: null,
+      EditableGender: null,
       filterCategories: [
         "Name",
         "Height",
