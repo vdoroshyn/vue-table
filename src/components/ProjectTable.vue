@@ -2,8 +2,9 @@
   <div>
     <div>
       <div class="checkbox" v-for="item in tableTitles" v-bind:key="item">
-        <label>{{item}}</label>
-        <input type="checkbox" v-bind:value="item" v-model="filterCategories"/>
+        <label>{{item}}
+          <input type="checkbox" v-bind:value="item" v-model="filterCategories"/>
+        </label>
       </div>
     </div>
     <table>
@@ -469,7 +470,7 @@ th {
 }
 
 tr input {
-  height: 35px;
+  height: 100%;
   width: 90%;
 }
 
