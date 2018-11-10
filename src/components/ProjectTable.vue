@@ -17,7 +17,7 @@
         <td>{{value.gender}}</td>
       </tr>
     </tbody>
-     <!-- debug: sort={{currentSortedItem}}, dir={{currentSortDirection}} -->
+     debug: sort={{sortBy}}, dir={{sortOrder}}
   </table>
   
 </template>
@@ -31,19 +31,19 @@ export default {
       /*
       **Case when the user clicks the same item
       */
-      if (this.currentSortedItem === item) {
-        this.currentSortDirection =
-          this.currentSortDirection === "asc" ? "desc" : "asc";
+      if (this.sortBy === item) {
+        this.sortOrder =
+          this.sortOrder === "asc" ? "desc" : "asc";
         return;
       }
-      this.currentSortedItem = item;
+      this.sortBy = item;
     }
   },
   computed: {
     sortedTableData: function() {
       return this.tableData.sort((a, b) => {
-        const item = this.currentSortedItem;
-        const orderMod = this.currentSortDirection === "desc" ? -1 : 1;
+        const item = this.sortBy;
+        const orderMod = this.sortOrder === "desc" ? -1 : 1;
         /*
         **Sorting of unknown is before everything because a lot of fields have it
         **As unknown is irrelevant to the search, it will be always on the bottom 
@@ -77,8 +77,8 @@ export default {
   },
   data: function() {
     return {
-      currentSortedItem: "name",
-      currentSortDirection: "asc",
+      sortBy: "name",
+      sortOrder: "asc",
       tableTitles: {
         name: "Name",
         height: "Height",
