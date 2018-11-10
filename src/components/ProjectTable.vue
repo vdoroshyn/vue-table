@@ -9,7 +9,7 @@
     <table>
       <thead>
         <tr>
-          <th v-for="(item, key, index) in tableTitles" v-if="filterCategories.includes(item)" @click="sort(key)" v-bind:key="index">{{item}}</th>
+          <th v-for="(item, key, index) in tableTitles" v-show="filterCategories.includes(item)" @click="sort(key)" v-bind:key="index">{{item}}</th>
         </tr>
       </thead>
       <tbody>
