@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(value, key, index) in sortedTableData" v-bind:key="index">
+        <tr v-for="(value, index) in sortedTableData" v-bind:key="index">
           <td v-show="filterCategories.includes('Name')">{{value.name}}</td>
           <td v-show="filterCategories.includes('Height')">{{value.height}}</td>
           <td v-show="filterCategories.includes('Mass')">{{value.mass}}</td>
