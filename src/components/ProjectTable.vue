@@ -14,8 +14,13 @@
       </thead>
       <tbody>
         <tr v-for="(value, index) in sortedTableData" v-bind:key="index">
-          <td v-show="filterCategories.includes('Name')">{{value.name}}</td>
-          <td v-show="filterCategories.includes('Height')">{{value.height}}</td>
+          <td v-show="filterCategories.includes('Name') && isEditable!==index" @dblclick="isEditable=index">{{value.name}}</td>
+          <input v-show="isEditable===index" type="text" v-model="value.name" @keyup.enter="isEditable=null">
+
+          <!-- <td v-show="filterCategories.includes('Height')">{{value.height}}</td> -->
+          <td v-show="filterCategories.includes('Height') && isHeightEditable!==index" @dblclick="isHeightEditable=index">{{value.height}}</td>
+          <input v-show="isHeightEditable===index" type="text" v-model="value.height" @keyup.enter="isHeightEditable=null">
+
           <td v-show="filterCategories.includes('Mass')">{{value.mass}}</td>
           <td v-show="filterCategories.includes('Hair color')">{{value.hair_color}}</td>
           <td v-show="filterCategories.includes('Skin color')">{{value.skin_color}}</td>
@@ -24,7 +29,7 @@
           <td v-show="filterCategories.includes('Gender')">{{value.gender}}</td>
         </tr>
       </tbody>
-      debug: sort={{sortBy}}, dir={{sortOrder}}, filterArray={{filterCategories}}
+      debug: sort={{sortBy}}, dir={{sortOrder}}, filterArray={{filterCategories}}, isEditable={{isEditable}}
       <h1 v-show="false">Hello!</h1>
     </table>
   </div>
@@ -40,8 +45,7 @@ export default {
       **Case when the user clicks the same item
       */
       if (this.sortBy === item) {
-        this.sortOrder =
-          this.sortOrder === "asc" ? "desc" : "asc";
+        this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
         return;
       }
       this.sortBy = item;
@@ -87,7 +91,18 @@ export default {
     return {
       sortBy: "name",
       sortOrder: "asc",
-      filterCategories: ["Name", "Height", "Mass", "Hair color", "Skin color", "Eye color", "Birth year", "Gender"],
+      isEditable: null,
+      isHeightEditable: null,
+      filterCategories: [
+        "Name",
+        "Height",
+        "Mass",
+        "Hair color",
+        "Skin color",
+        "Eye color",
+        "Birth year",
+        "Gender"
+      ],
       tableTitles: {
         name: "Name",
         height: "Height",
@@ -420,12 +435,17 @@ th {
   padding: 8px;
 }
 
+tr input {
+  height: 35px;
+  width: 90%;
+}
+
 tr:nth-child(even) {
   background-color: #dddddd;
 }
 
 .checkbox {
-    display: inline-block;
+  display: inline-block;
 }
 
 .checkbox input {
