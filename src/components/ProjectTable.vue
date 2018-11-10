@@ -1,25 +1,33 @@
 <template>
-  <table>
-    <thead>
-      <tr>
-        <th v-for="(item, key, index) in tableTitles" @click="sort(key)" v-bind:key="index">{{item}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(value, index) in sortedTableData" v-bind:key="index">
-        <td>{{value.name}}</td>
-        <td>{{value.height}}</td>
-        <td>{{value.mass}}</td>
-        <td>{{value.hair_color}}</td>
-        <td>{{value.skin_color}}</td>
-        <td>{{value.eye_color}}</td>
-        <td>{{value.birth_year}}</td>
-        <td>{{value.gender}}</td>
-      </tr>
-    </tbody>
-     debug: sort={{sortBy}}, dir={{sortOrder}}
-  </table>
-  
+  <div>
+    <div>
+      <div class="checkbox" v-for="item in tableTitles" v-bind:key="item">
+        <label>{{item}}</label>
+        <input type="checkbox" v-bind:value="item" v-model="filterCategories"/>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th v-for="(item, key, index) in tableTitles" v-if="filterCategories.includes(item)" @click="sort(key)" v-bind:key="index">{{item}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(value, key, index) in sortedTableData" v-bind:key="index">
+          <td v-show="filterCategories.includes('Name')">{{value.name}}</td>
+          <td v-show="filterCategories.includes('Height')">{{value.height}}</td>
+          <td v-show="filterCategories.includes('Mass')">{{value.mass}}</td>
+          <td v-show="filterCategories.includes('Hair color')">{{value.hair_color}}</td>
+          <td v-show="filterCategories.includes('Skin color')">{{value.skin_color}}</td>
+          <td v-show="filterCategories.includes('Eye color')">{{value.eye_color}}</td>
+          <td v-show="filterCategories.includes('Birth year')">{{value.birth_year}}</td>
+          <td v-show="filterCategories.includes('Gender')">{{value.gender}}</td>
+        </tr>
+      </tbody>
+      debug: sort={{sortBy}}, dir={{sortOrder}}, filterArray={{filterCategories}}
+      <h1 v-show="false">Hello!</h1>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -79,6 +87,7 @@ export default {
     return {
       sortBy: "name",
       sortOrder: "asc",
+      filterCategories: ["Name", "Height", "Mass", "Hair color", "Skin color", "Eye color", "Birth year", "Gender"],
       tableTitles: {
         name: "Name",
         height: "Height",
@@ -413,5 +422,18 @@ th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+.checkbox {
+    display: inline-block;
+}
+
+.checkbox input {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.checkbox label {
+  display: inline-block;
 }
 </style>
