@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="panel">
       <div class="checkbox" v-for="item in initialData.titles" v-bind:key="item">
         <label>{{item}}
           <input type="checkbox" v-bind:value="item" v-model="filterCategories"/>
@@ -10,34 +10,37 @@
     <table>
       <thead>
         <tr>
-          <th v-for="(item, key, index) in initialData.titles" v-show="filterCategories.includes(item)" @click="sort(key)" v-bind:key="index">{{item}}</th>
+          <th v-for="(item, key, index) in initialData.titles" v-show="filterCategories.includes(item)" @click="sort(key)" v-bind:key="index">{{item}}
+          <span v-if="sortOrder==='asc'">&#x25BC;</span>
+          <span v-else>&#x25B2;</span>
+        </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(value, index) in sortedTableData" v-bind:key="index">
-          <td v-show="filterCategories.includes('Name') && EditableName!==index" @dblclick="EditableName=index; sortBy=''">{{value.name}}</td>
-          <input v-show="EditableName===index" type="text" v-model="value.name" v-on:blur="EditableName=null" @keyup.enter="EditableName=null">
+          <td v-show="filterCategories.includes('Name') && editableName!==index" @dblclick="editableName=index; sortBy=''">{{value.name}}</td>
+          <input v-show="editableName===index" type="text" v-model="value.name" v-on:blur="editableName=null" @keyup.enter="editableName=null">
 
-          <td v-show="filterCategories.includes('Height') && EditableHeight!==index" @dblclick="EditableHeight=index; sortBy=''">{{value.height}}</td>
-          <input v-show="EditableHeight===index" type="text" v-model="value.height" v-on:blur="EditableHeight=null" @keyup.enter="EditableHeight=null">
+          <td v-show="filterCategories.includes('Height') && editableHeight!==index" @dblclick="editableHeight=index; sortBy=''">{{value.height}}</td>
+          <input v-show="editableHeight===index" type="text" v-model="value.height" v-on:blur="editableHeight=null" @keyup.enter="editableHeight=null">
 
-          <td v-show="filterCategories.includes('Mass') && EditableMass!==index" @dblclick="EditableMass=index; sortBy=''">{{value.mass}}</td>
-          <input v-show="EditableMass===index" type="text" v-model="value.mass" v-on:blur="EditableMass=null" @keyup.enter="EditableMass=null">
+          <td v-show="filterCategories.includes('Mass') && editableMass!==index" @dblclick="editableMass=index; sortBy=''">{{value.mass}}</td>
+          <input v-show="editableMass===index" type="text" v-model="value.mass" v-on:blur="editableMass=null" @keyup.enter="editableMass=null">
 
-          <td v-show="filterCategories.includes('Hair color') && EditableHairColor!==index" @dblclick="EditableHairColor=index; sortBy=''">{{value.hair_color}}</td>
-          <input v-show="EditableHairColor===index" type="text" v-model="value.hair_color" v-on:blur="EditableHairColor=null" @keyup.enter="EditableHairColor=null">
+          <td v-show="filterCategories.includes('Hair color') && editableHairColor!==index" @dblclick="editableHairColor=index; sortBy=''">{{value.hair_color}}</td>
+          <input v-show="editableHairColor===index" type="text" v-model="value.hair_color" v-on:blur="editableHairColor=null" @keyup.enter="editableHairColor=null">
 
-          <td v-show="filterCategories.includes('Skin color') && EditableSkinColor!==index" @dblclick="EditableSkinColor=index; sortBy=''">{{value.skin_color}}</td>
-          <input v-show="EditableSkinColor===index" type="text" v-model="value.skin_color" v-on:blur="EditableSkinColor=null" @keyup.enter="EditableSkinColor=null">
+          <td v-show="filterCategories.includes('Skin color') && editableSkinColor!==index" @dblclick="editableSkinColor=index; sortBy=''">{{value.skin_color}}</td>
+          <input v-show="editableSkinColor===index" type="text" v-model="value.skin_color" v-on:blur="editableSkinColor=null" @keyup.enter="editableSkinColor=null">
 
-          <td v-show="filterCategories.includes('Eye color') && EditableEyeColor!==index" @dblclick="EditableEyeColor=index; sortBy=''">{{value.eye_color}}</td>
-          <input v-show="EditableEyeColor===index" type="text" v-model="value.eye_color" v-on:blur="EditableEyeColor=null" @keyup.enter="EditableEyeColor=null">
+          <td v-show="filterCategories.includes('Eye color') && editableEyeColor!==index" @dblclick="editableEyeColor=index; sortBy=''">{{value.eye_color}}</td>
+          <input v-show="editableEyeColor===index" type="text" v-model="value.eye_color" v-on:blur="editableEyeColor=null" @keyup.enter="editableEyeColor=null">
 
-          <td v-show="filterCategories.includes('Birth year') && EditableBirthYear!==index" @dblclick="EditableBirthYear=index; sortBy=''">{{value.birth_year}}</td>
-          <input v-show="EditableBirthYear===index" type="text" v-model="value.birth_year" v-on:blur="EditableBirthYear=null" @keyup.enter="EditableBirthYear=null">
+          <td v-show="filterCategories.includes('Birth year') && editableBirthYear!==index" @dblclick="editableBirthYear=index; sortBy=''">{{value.birth_year}}</td>
+          <input v-show="editableBirthYear===index" type="text" v-model="value.birth_year" v-on:blur="editableBirthYear=null" @keyup.enter="editableBirthYear=null">
 
-          <td v-show="filterCategories.includes('Gender') && EditableGender!==index" @dblclick="EditableGender=index; sortBy=''">{{value.gender}}</td>
-          <input v-show="EditableGender===index" type="text" v-model="value.gender" v-on:blur="EditableGender=null" @keyup.enter="EditableGender=null">
+          <td v-show="filterCategories.includes('Gender') && editableGender!==index" @dblclick="editableGender=index; sortBy=''">{{value.gender}}</td>
+          <input v-show="editableGender===index" type="text" v-model="value.gender" v-on:blur="editableGender=null" @keyup.enter="editableGender=null">
         </tr>
       </tbody>
     </table>
@@ -119,14 +122,14 @@ export default {
     return {
       sortBy: "",
       sortOrder: "asc",
-      EditableName: null,
-      EditableHeight: null,
-      EditableMass: null,
-      EditableHairColor: null,
-      EditableSkinColor: null,
-      EditableEyeColor: null,
-      EditableBirthYear: null,
-      EditableGender: null,
+      editableName: null,
+      editableHeight: null,
+      editableMass: null,
+      editableHairColor: null,
+      editableSkinColor: null,
+      editableEyeColor: null,
+      editableBirthYear: null,
+      editableGender: null,
       filterCategories: []
     };
   }
@@ -147,6 +150,10 @@ th {
   padding: 8px;
 }
 
+th {
+  cursor: pointer;
+}
+
 tr input {
   height: 100%;
   width: 90%;
@@ -158,14 +165,27 @@ tr:nth-child(even) {
 
 .checkbox {
   display: inline-block;
+  margin: 0 10px;
 }
 
 .checkbox input {
   display: inline-block;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .checkbox label {
   display: inline-block;
+  cursor: pointer;
+}
+
+.panel {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 30px 30px;
 }
 </style>
