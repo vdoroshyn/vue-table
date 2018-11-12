@@ -11,8 +11,9 @@ The task:
 Пример данных, получаемых компонентом при его инициализации, прилагается.
 ```
 
-The Project can be previewed here:
-`https://vdoroshyn.github.io/vue-table/`
+## Github Pages with the project
+
+[The Project can be previewed here:](https://vdoroshyn.github.io/vue-table/)
 
 ```
 The table was completed as one component. The data is transferred from the parent component.
