@@ -1,6 +1,6 @@
 # vue-table component
 
-##The Task
+## The Task
 
 ```
 Целью тестового задания является создание и публикация на Github/Bitbucket переиспользуемого vue-компонента.
