@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="panel">
+    <div class="panel" @mouseover="turnOffEditable">
       <div class="checkbox" v-for="item in initialData.titles" v-bind:key="item">
         <label>{{item}}
           <input type="checkbox" v-bind:value="item" v-model="filterCategories"/>
@@ -62,6 +62,16 @@ export default {
         return;
       }
       this.sortBy = item;
+    },
+    turnOffEditable() {
+      this.editableName = null;
+      this.editableHeight = null;
+      this.editableMass = null;
+      this.editableHairColor = null;
+      this.editableSkinColor = null;
+      this.editableEyeColor = null;
+      this.editableBirthYear = null;
+      this.editableGender = null;
     }
   },
   created() {
