@@ -1,4 +1,4 @@
-# vue-table
+# vue-table component
 
 ```
 The task:
@@ -11,9 +11,11 @@ The task:
 Пример данных, получаемых компонентом при его инициализации, прилагается.
 ```
 
-## Github Pages with the project
+# Github Pages with the project
 
-[The Project can be previewed here:](https://vdoroshyn.github.io/vue-table/)
+[The Project can be previewed here](https://vdoroshyn.github.io/vue-table/)
+
+## Project description
 
 ```
 The table was completed as one component. The data is transferred from the parent component.
