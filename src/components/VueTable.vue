@@ -51,11 +51,10 @@
 
 <script>
 export default {
-  name: "ProjectTable",
+  name: "VueTable",
   props: ["initialData"],
   methods: {
     sort(item) {
-      console.log(item);
       item = item.toLowerCase();
       /*
       **Case when the user clicks the same item

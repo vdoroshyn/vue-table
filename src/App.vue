@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <ProjectTable v-bind:initialData="initialData"/>
+    <VueTable v-bind:initialData="initialData"/>
   </div>
 </template>
 
 <script>
-import ProjectTable from "./components/ProjectTable.vue";
+import VueTable from "./components/VueTable.vue";
 
 export default {
   name: "app",
   components: {
-    ProjectTable
+    VueTable
   },
   data: function() {
     return {
