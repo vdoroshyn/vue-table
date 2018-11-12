@@ -1,4 +1,4 @@
-# vue-table
+# vue-table component
 
 ## The Task
 
