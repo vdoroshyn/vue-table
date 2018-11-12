@@ -11,8 +11,8 @@
       <thead>
         <tr>
           <th v-for="(item, key, index) in initialData.titles" v-show="filterCategories.includes(item)" @click="sort(key)" @mouseover="turnOffEditable" v-bind:key="index">{{item}}
-          <span v-if="sortOrder==='asc'">&#x25BC;</span>
-          <span v-else>&#x25B2;</span>
+          <span v-if="sortOrder==='asc' && sortBy === key">&#x25BC;</span>
+          <span v-else-if="sortOrder==='desc' && sortBy === key">&#x25B2;</span>
         </th>
         </tr>
       </thead>
@@ -55,6 +55,7 @@ export default {
   props: ["initialData"],
   methods: {
     sort(item) {
+      console.log(item);
       item = item.toLowerCase();
       /*
       **Case when the user clicks the same item
