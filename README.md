@@ -16,25 +16,6 @@
 
 [The Project can be previewed here](https://vdoroshyn.github.io/vue-table/)
 
-## Project description
-
-```
-The table was completed as one component. The data is transferred from the parent component.
-The main features are filtering, sorting, and editable fields.
-
-Sorting is case sensitive.
-For the number fields, the table is sorted not alphabetically.
-n/a, unknown, none, and blank fields are dropped to the end
-and do not participate in the sorting of the column because they are irrelevant.
-
-Editable fields are done in such a way that only one input field can be displayed at a time.
-Filter and hover over the column name will disable editing.
-After the field was edited and saved, it will participate in the overall sorting.
-
-The table seems to be pretty functional. There might be bugs though.
-HTML and CSS layout were not prioritized during this test project.
-```
-
 ## Project setup
 
 ```
