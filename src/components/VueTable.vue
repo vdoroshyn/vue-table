@@ -9,39 +9,39 @@
     </div>
     <table>
       <thead>
-        <tr>
-          <th v-for="(item, key, index) in initialData.titles" v-show="filterCategories.includes(item)" @click="sort(key)" @mouseover="turnOffEditable" v-bind:key="index">{{item}}
+        <tr class="flex-grid">
+          <th class="col" v-for="(item, key, index) in initialData.titles" v-show="filterCategories.includes(item)" @click="sort(key)" @mouseover="turnOffEditable" v-bind:key="index">{{item}}
           <span v-if="sortOrder==='asc' && sortBy === key">&#x25BC;</span>
           <span v-else-if="sortOrder==='desc' && sortBy === key">&#x25B2;</span>
         </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(value, index) in sortedTableData" v-bind:key="index">
+        <tr class="flex-grid" v-for="(value, index) in sortedTableData" v-bind:key="index">
           
-          <td v-show="filterCategories.includes('Name') && shouldInputBeHidden('Name', index)" @dblclick="makeOneFieldEditable('Name', index)">{{value.name}}</td>
-          <input v-show="!shouldInputBeHidden('Name', index)" type="text" v-model="value.name" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
+          <td class="col" v-show="filterCategories.includes('Name') && shouldInputBeHidden('Name', index)" @dblclick="makeOneFieldEditable('Name', index)">{{value.name}}</td>
+          <input class="col" v-show="!shouldInputBeHidden('Name', index)" type="text" v-model="value.name" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
 
-          <td v-show="filterCategories.includes('Height') && shouldInputBeHidden('Height', index)" @dblclick="makeOneFieldEditable('Height', index)">{{value.height}}</td>
-          <input v-show="!shouldInputBeHidden('Height', index)" v-model="value.height" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
+          <td class="col" v-show="filterCategories.includes('Height') && shouldInputBeHidden('Height', index)" @dblclick="makeOneFieldEditable('Height', index)">{{value.height}}</td>
+          <input class="col" v-show="!shouldInputBeHidden('Height', index)" v-model="value.height" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
 
-          <td v-show="filterCategories.includes('Mass') && shouldInputBeHidden('Mass', index)" @dblclick="makeOneFieldEditable('Mass', index)">{{value.mass}}</td>
-          <input v-show="!shouldInputBeHidden('Mass', index)" v-model="value.mass" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
+          <td class="col" v-show="filterCategories.includes('Mass') && shouldInputBeHidden('Mass', index)" @dblclick="makeOneFieldEditable('Mass', index)">{{value.mass}}</td>
+          <input class="col" v-show="!shouldInputBeHidden('Mass', index)" v-model="value.mass" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
 
-          <td v-show="filterCategories.includes('Hair color') && shouldInputBeHidden('Hair color', index)" @dblclick="makeOneFieldEditable('Hair color', index)">{{value.hair_color}}</td>
-          <input v-show="!shouldInputBeHidden('Hair color', index)" v-model="value.hair_color" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
+          <td class="col" v-show="filterCategories.includes('Hair color') && shouldInputBeHidden('Hair color', index)" @dblclick="makeOneFieldEditable('Hair color', index)">{{value.hair_color}}</td>
+          <input class="col" v-show="!shouldInputBeHidden('Hair color', index)" v-model="value.hair_color" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
 
-          <td v-show="filterCategories.includes('Skin color') && shouldInputBeHidden('Skin color', index)" @dblclick="makeOneFieldEditable('Skin color', index)">{{value.skin_color}}</td>
-          <input v-show="!shouldInputBeHidden('Skin color', index)" v-model="value.skin_color" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
+          <td class="col" v-show="filterCategories.includes('Skin color') && shouldInputBeHidden('Skin color', index)" @dblclick="makeOneFieldEditable('Skin color', index)">{{value.skin_color}}</td>
+          <input class="col" v-show="!shouldInputBeHidden('Skin color', index)" v-model="value.skin_color" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
 
-          <td v-show="filterCategories.includes('Eye color') && shouldInputBeHidden('Eye color', index)" @dblclick="makeOneFieldEditable('Eye color', index)">{{value.eye_color}}</td>
-          <input v-show="!shouldInputBeHidden('Eye color', index)" v-model="value.eye_color" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
+          <td class="col" v-show="filterCategories.includes('Eye color') && shouldInputBeHidden('Eye color', index)" @dblclick="makeOneFieldEditable('Eye color', index)">{{value.eye_color}}</td>
+          <input class="col" v-show="!shouldInputBeHidden('Eye color', index)" v-model="value.eye_color" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
 
-          <td v-show="filterCategories.includes('Birth year') && shouldInputBeHidden('Birth year', index)" @dblclick="makeOneFieldEditable('Birth year', index)">{{value.birth_year}}</td>
-          <input v-show="!shouldInputBeHidden('Birth year', index)" v-model="value.birth_year" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
+          <td class="col" v-show="filterCategories.includes('Birth year') && shouldInputBeHidden('Birth year', index)" @dblclick="makeOneFieldEditable('Birth year', index)">{{value.birth_year}}</td>
+          <input class="col" v-show="!shouldInputBeHidden('Birth year', index)" v-model="value.birth_year" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
 
-          <td v-show="filterCategories.includes('Gender') && shouldInputBeHidden('Gender', index)" @dblclick="makeOneFieldEditable('Gender', index)">{{value.gender}}</td>
-          <input v-show="!shouldInputBeHidden('Gender', index)" v-model="value.gender" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
+          <td class="col" v-show="filterCategories.includes('Gender') && shouldInputBeHidden('Gender', index)" @dblclick="makeOneFieldEditable('Gender', index)">{{value.gender}}</td>
+          <input class="col" v-show="!shouldInputBeHidden('Gender', index)" v-model="value.gender" v-on:blur="isEditable.pop()" @keyup.enter="isEditable.pop()">
 
         </tr>
       </tbody>
@@ -178,6 +178,14 @@ tr input {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+.flex-grid {
+  display: flex;
+}
+
+.col {
+  flex: 1;
 }
 
 .checkbox {
